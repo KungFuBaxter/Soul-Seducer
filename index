@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h2 { color: #333; }
+        .habit-list { list-style: none; padding: 0; }
+        .habit-item { display: flex; align-items: center; margin-bottom: 10px; }
+        label { margin-left: 8px; }
+        .button-container { margin-top: 20px; }
+        button { padding: 10px 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Daily Habit Tracker</h2>
+    <p>Select the habits you’ve completed today:</p>
+    <ul class="habit-list">
+        <li class="habit-item"><input type="checkbox" id="habit1"> <label for="habit1">Exercise</label></li>
+        <li class="habit-item"><input type="checkbox" id="habit2"> <label for="habit2">Read</label></li>
+        <li class="habit-item"><input type="checkbox" id="habit3"> <label for="habit3">Meditate</label></li>
+        <li class="habit-item"><input type="checkbox" id="habit4"> <label for="habit4">Journal</label></li>
+        <li class="habit-item"><input type="checkbox" id="habit5"> Drink Water</label></li>
+        <li class="habit-item"><input type="checkbox" id="habit6"> <label for="habit6">Sleep 8+ Hours</label></li>
+    </ul>
+    <div class="button-container">
+        <button onclick="saveHabits()">Save Progress</button>
+        <button onclick="resetHabits()">Reset for Tomorrow</button>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Load saved habits from local storage
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`habit${i}`).checked = localStorage.getItem(`habit${i}`) === 'true';
+            }
+        });
+
+        function saveHabits() {
+            // Save the current state of checkboxes
+            for (let i = 1; i <= 6; i++) {
+                localStorage.setItem(`habit${i}`, document.getElementById(`habit${i}`).checked);
+            }
+            alert("Habits saved successfully!");
+        }
+
+        function resetHabits() {
+            // Reset all checkboxes for the new day
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`habit${i}`).checked = false;
+                localStorage.removeItem(`habit${i}`);
+            }
+            alert("Ready for a new day!");
+        }
+    </script>
+</body>
+</html>
